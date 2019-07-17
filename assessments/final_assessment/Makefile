@@ -27,8 +27,8 @@ include sources.mk
 
 
 #Liker file for target
-LINKER_FILE = ../msp432p401r.lds
-TARGET = c1m2
+LINKER_FILE = msp432p401r.lds
+TARGET = final
 
 ifeq ($(PLATFORM),MSP432)
 SRC = interrupts_msp432p401r_gcc.c main.c memory.c startup_msp432p401r_gcc.c system_msp432p401r.c
