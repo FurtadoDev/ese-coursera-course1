@@ -48,3 +48,72 @@ void clear_all(char * ptr, unsigned int size){
   set_all(ptr, 0, size);
 }
 
+//The areas may overlap
+uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length)
+{
+	uint8_t* temp = malloc(length);
+	//copy bytes into the temp storage.
+        for(int i = 0; i < length; i++)
+	{
+		*(temp+i) = *(src + i);
+	}
+	//copy bytes from the temp storage to the destination pointer.
+	for(int i = 0; i < length; i++)
+	{
+		*(dst + i) = *(temp+i);
+	}
+
+	return dst;
+	
+}
+
+//The areas may not overlap
+uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length)
+{
+	//copy bytes from source to destination.
+        for(int i = 0; i < length; i++)
+	{
+		*(dst + i) = *(src + i);
+	}
+	return dst;
+}
+
+uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value)
+{
+	for(int i = 0; i < length; i++)
+	{
+		*(src + i) = value;
+	}
+	return src;
+}
+
+uint8_t * my_memzero(uint8_t * src, size_t length)
+{
+	for(int i = 0; i < length; i++)
+	{
+		*(src + i) = 0;
+	}
+	return src;
+}
+
+uint8_t * my_reverse(uint8_t * src, size_t length)
+{
+	uint8_t temp;
+	for(int i = 0; i < length/2; i++)
+	{
+		temp = *(src + i);
+		*(src + i) = *(src + (length - 1) -i); 
+		*(src + (length - 1) -i) = temp;
+	}
+	return src;
+}
+
+int32_t * reserve_words(size_t length)
+{
+	int32_t* words = malloc(length*2);
+	return words;
+}
+
+void free_words(uint32_t * src){
+	free(src);
+}

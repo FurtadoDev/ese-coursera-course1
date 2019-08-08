@@ -23,6 +23,8 @@
 #ifndef __STATS_H__
 #define __STATS_H__
 
+#include "platform.h"
+
 /* Add Your Declarations and Function Comments here */ 
 
 /**

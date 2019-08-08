@@ -17,7 +17,8 @@
  *
  */
 
-#include <stdint.h>
+
+
 #include "course1.h"
 #include "platform.h"
 #include "memory.h"
@@ -37,8 +38,7 @@ int8_t test_data1() {
   {
     return TEST_ERROR;
   }
-
-  digits = my_itoa( num, ptr, BASE_16);   
+  digits = my_itoa( num, ptr, BASE_16);  
   value = my_atoi( ptr, digits, BASE_16);
   #ifdef VERBOSE
   PRINTF("  Initial number: %d\n", num);
@@ -67,7 +67,7 @@ int8_t test_data2() {
     return TEST_ERROR;
   }
 
-  digits = my_itoa( num, ptr, BASE_10);
+  digits = my_itoa( num, ptr, BASE_10); 
   value = my_atoi( ptr, digits, BASE_10);
   #ifdef VERBOSE
   PRINTF("  Initial Decimal number: %d\n", num);
@@ -339,6 +339,7 @@ void course1(void)
   for ( i = 0; i < TESTCOUNT; i++) 
   {
     failed += results[i];
+    printf("Test Number: %d is %d\n",i,results[i]);
   }
 
   PRINTF("--------------------------------\n");
@@ -347,3 +348,5 @@ void course1(void)
   PRINTF("  FAILED: %d / %d\n", failed, TESTCOUNT);
   PRINTF("--------------------------------\n");
 }
+
+

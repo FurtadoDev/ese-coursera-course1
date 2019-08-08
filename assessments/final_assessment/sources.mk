@@ -10,17 +10,16 @@
 #*****************************************************************************
 
 # Add your Source files to this variable
-SOURCES := ./src/interrupts_msp432p401r_gcc.c \
-	  ./src/main.c \
-	  ./src/memory.c \
-	  ./src/startup_msp432p401r_gcc.c \
-	  ./src/system_msp432p401r.c \
-	  ./src/course1.c \
-	  ./src/data.c \
-	  ./src/stats.c
+SOURCES := src/interrupts_msp432p401r_gcc.c \
+	  src/main.c \
+	  src/course1.c \
+	  src/stats.c \
+	  src/memory.c \
+	  src/startup_msp432p401r_gcc.c \
+	  src/system_msp432p401r.c \
+	  src/data.c
 
 # Add your include paths to this variable
-INCLUDES := -I./include/CMSIS \
-	-I./include/common \
-	-I./include/msp432
-
+INCLUDES := -Iinclude/CMSIS \
+	    -Iinclude/common \
+	    -Iinclude/msp432

@@ -36,10 +36,12 @@ void print_statistics(unsigned char *original_array){
 }
 
 void print_array(unsigned char* original_array, int length){
+	#ifdef VERBOSE
 	for(int i=0;i<length;i++)
 	{
-		printf("%d\n",original_array[i]);
+		PRINTF("%d\n",original_array[i]);
 	}
+	#endif
 }
 
 void find_median(unsigned char* original_array, int length){
@@ -49,21 +51,19 @@ void find_median(unsigned char* original_array, int length){
 
 void find_mean(unsigned char* original_array, int length){
 	int sum = 0;
-	int mean = 0;
 	for(int i=0;i<length;i++)
 	{
 		sum+=original_array[i];
 	}
-	mean = sum/length;
-	printf("mean value is %d\n",mean);
+	PRINTF("mean value is %d\n",sum/length);
 }
 
 void find_maximum(unsigned char* original_array, int length){
-	printf("The maximum is  %d\n",original_array[0]);
+	PRINTF("The maximum is  %d\n",original_array[0]);
 }
 
 void find_minimum(unsigned char* original_array, int length){
-	printf("The minimum is  %d\n",original_array[length-1]);
+	PRINTF("The minimum is  %d\n",original_array[length-1]);
 }
 
 void sort_array(unsigned char* original_array, int length){
@@ -75,7 +75,7 @@ void merge(int low, int mid, int high, unsigned char* original_array){
 	int tempIndex = 0;
 	int i = low;
 	int j = mid+1;
-	int k = high;
+	//int k = high;
 	while((i <= mid) && (j <= high)){
 		if(original_array[i] > original_array[j]){
 			temp[tempIndex] = original_array[i];
@@ -131,7 +131,7 @@ void mergesort(int low, int high, unsigned char* original_array){
 	}
 }
 
-
+/**
 void main() {
 
   unsigned char original_array[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
@@ -144,6 +144,6 @@ void main() {
   print_array(original_array, SIZE);
   
 }
-
+**/
 /* Add other Implementation File Code Here */
 

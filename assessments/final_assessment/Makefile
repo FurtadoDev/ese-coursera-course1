@@ -28,10 +28,10 @@ include sources.mk
 
 #Liker file for target
 LINKER_FILE = msp432p401r.lds
-TARGET = final
+TARGET = c1m2
 
 ifeq ($(PLATFORM),MSP432)
-SRC = interrupts_msp432p401r_gcc.c main.c memory.c startup_msp432p401r_gcc.c system_msp432p401r.c
+SRC = src/interrupts_msp432p401r_gcc.c src/main.c src/memory.c src/startup_msp432p401r_gcc.c src/system_msp432p401r.c src/course1.c src/stats.c src/data.c
 OBJS = $(SRC:.c=.o)
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
@@ -39,7 +39,7 @@ LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE)
 CFLAGS = -mcpu=cortex-m4 -mthumb -march=armv7e-m -mfloat-abi=hard -mfpu=fpv4-sp-d16 --specs=nosys.specs -Wall -Werror -g -O0 -std=c99
 CPPFLAGS = $(INCLUDES) 
 else
-SRC = main.c memory.c
+SRC = src/main.c src/memory.c src/course1.c src/stats.c src/data.c
 OBJS = $(SRC:.c=.o)
 CC = gcc
 LD = ld
@@ -50,16 +50,16 @@ endif
 
 #Pre-processing Stage
 %.i : %.c
-	$(CC) -E -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.i
-	$(CC) -MM -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
+	$(CC) -E -D$(PLATFORM) -DCOURSE1 $(CFLAGS) $(CPPFLAGS) $*.c -o $*.i
+	$(CC) -MM -D$(PLATFORM) -DCOURSE1 $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
 #Compiler-proper Stage
 %.s : %.c
-	$(CC) -S -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.s
-	$(CC) -MM -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
+	$(CC) -S -D$(PLATFORM) -DCOURSE1 $(CFLAGS) $(CPPFLAGS) $*.c -o $*.s
+	$(CC) -MM -D$(PLATFORM) -DCOURSE1 $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
 #Assembler Stage
 %.o : %.c
-	$(CC) -c -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.o
-	$(CC) -MM -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
+	$(CC) -c -D$(PLATFORM) -DCOURSE1 $(CFLAGS) $(CPPFLAGS) $*.c -o $*.o
+	$(CC) -MM -D$(PLATFORM) -DCOURSE1 $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
 #Linker and Locator Stage
 $(TARGET).out: $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) -o $@
