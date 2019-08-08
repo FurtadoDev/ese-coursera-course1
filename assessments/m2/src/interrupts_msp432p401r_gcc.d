@@ -1,1 +1,0 @@
-interrupts_msp432p401r_gcc.o: interrupts_msp432p401r_gcc.c
