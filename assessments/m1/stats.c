@@ -43,8 +43,8 @@ void print_array(unsigned char* original_array, int length){
 }
 
 void find_median(unsigned char* original_array, int length){
-	int medianIndex = (length - 1)/2;
-	printf("The median value is %d\n",original_array[medianIndex]);
+	int medianIndex = (length)/2;
+	printf("The Median value is %d\n",original_array[medianIndex]);
 }
 
 void find_mean(unsigned char* original_array, int length){
@@ -55,21 +55,22 @@ void find_mean(unsigned char* original_array, int length){
 		sum+=original_array[i];
 	}
 	mean = sum/length;
-	printf("mean value is %d\n",mean);
+	printf("The Mean value is %d\n",mean);
 }
 
 void find_maximum(unsigned char* original_array, int length){
-	printf("The maximum is  %d\n",original_array[0]);
+	printf("The Maximum is  %d\n",original_array[0]);
 }
 
 void find_minimum(unsigned char* original_array, int length){
-	printf("The minimum is  %d\n",original_array[length-1]);
+	printf("The Minimum is  %d\n",original_array[length-1]);
 }
 
 void sort_array(unsigned char* original_array, int length){
 	mergesort(0,length-1, original_array);
 }
 
+//Merge sort using recursion
 void merge(int low, int mid, int high, unsigned char* original_array){
 	int temp[high+1];
 	int tempIndex = 0;
@@ -134,13 +135,14 @@ void mergesort(int low, int high, unsigned char* original_array){
 
 void main() {
 
-  unsigned char original_array[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
+  unsigned char original_array[SIZE] = { 34, 201, 190, 154,   8, 194, 2, 6,
                               114, 88,   45,  76, 123,  87,  25,  23,
                               200, 122, 150, 90,   92,  87, 177, 244,
                               201,   6,  12,  60,   8,   2,   5,  67,
                                 7,  87, 250, 230,  99,   3, 100,  90};
 
   print_statistics(original_array);
+  printf("Sorted Array:\n");
   print_array(original_array, SIZE);
   
 }

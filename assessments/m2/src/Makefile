@@ -15,7 +15,7 @@
 # Use: make [TARGET] [PLATFORM-OVERRIDES]
 #
 # Build Targets:
-#      <Put a description of the supported targets here>
+#      <HOST and MSP432 are supported here. If no PLATFORM is define at the time of compilation, the PLATFORM is initialized with HOST>
 #
 # Platform Overrides:
 #      <Put a description of the supported Overrides here
@@ -25,21 +25,24 @@
 include sources.mk
 -include $(SRC:.c=.d)
 
+ifndef PLATFORM
+ PLATFORM = HOST
+endif
 
 #Liker file for target
 LINKER_FILE = ../msp432p401r.lds
 TARGET = c1m2
 
 ifeq ($(PLATFORM),MSP432)
-SRC = interrupts_msp432p401r_gcc.c main.c memory.c startup_msp432p401r_gcc.c system_msp432p401r.c
+SRC = $(SOURCES_MSP432)
 OBJS = $(SRC:.c=.o)
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE)
 CFLAGS = -mcpu=cortex-m4 -mthumb -march=armv7e-m -mfloat-abi=hard -mfpu=fpv4-sp-d16 --specs=nosys.specs -Wall -Werror -g -O0 -std=c99
-CPPFLAGS = $(INCLUDES) 
+CPPFLAGS = $(INCLUDES)
 else
-SRC = main.c memory.c
+SRC = $(SOURCES_HOST)
 OBJS = $(SRC:.c=.o)
 CC = gcc
 LD = ld
@@ -53,8 +56,8 @@ endif
 	$(CC) -E -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.i
 	$(CC) -MM -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
 #Compiler-proper Stage
-%.s : %.c
-	$(CC) -S -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.s
+%.asm : %.c
+	$(CC) -S -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.asm
 	$(CC) -MM -D$(PLATFORM) $(CFLAGS) $(CPPFLAGS) $*.c -o $*.d
 #Assembler Stage
 %.o : %.c
@@ -70,6 +73,9 @@ build: all
 .PHONY: all
 all: $(TARGET).out
 
+.PHONY: compile-all
+compile-all: $(SRC:.c=.o)
+
 .PHONY: clean
 clean:
-	rm -f $(SOURCES:.c=.o) $(SOURCES:.c=.d) $(SOURCES:.c=.i) $(SOURCES:.c=.s) $(TARGET).out $(TARGET).map
+	rm -f $(SOURCES:.c=.o) $(SOURCES:.c=.d) $(SOURCES:.c=.i) $(SOURCES:.c=.asm) $(TARGET).out $(TARGET).map

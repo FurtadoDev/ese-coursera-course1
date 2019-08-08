@@ -16,6 +16,12 @@ SOURCES := interrupts_msp432p401r_gcc.c \
 	  startup_msp432p401r_gcc.c \
 	  system_msp432p401r.c
 
+# Source files that should be compiled when compiling to be run on the host
+SOURCES_HOST := main.c memory.c
+
+#Source files that should be compiled when compiling to be run on the target
+SOURCES_MSP432 := interrupts_msp432p401r_gcc.c main.c memory.c startup_msp432p401r_gcc.c system_msp432p401r.c
+
 # Add your include paths to this variable
 INCLUDES := -I../include/CMSIS \
 	-I../include/common \
