@@ -18,6 +18,11 @@ SOURCES := src/interrupts_msp432p401r_gcc.c \
 	  src/startup_msp432p401r_gcc.c \
 	  src/system_msp432p401r.c \
 	  src/data.c
+# Source files that need to be compiled when compiling for the target(MSP432) platform
+SOURCES_MSP432 := src/interrupts_msp432p401r_gcc.c src/main.c src/memory.c src/startup_msp432p401r_gcc.c src/system_msp432p401r.c src/course1.c src/stats.c src/data.c
+
+# Source files that need to be compiled when compiling for the host platform
+SOURCES_HOST := src/main.c src/memory.c src/course1.c src/stats.c src/data.c
 
 # Add your include paths to this variable
 INCLUDES := -Iinclude/CMSIS \
